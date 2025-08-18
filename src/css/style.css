@@ -1,0 +1,61 @@
+/* ===========================
+   Custom Theme Color: #7571f9
+   =========================== */
+
+.bg-gray {
+  background-color: #f4f3f9;
+}
+/* Backgrounds */
+.bg-purple {
+  background-color: #7571f9 !important;
+}
+
+.bg-purple-light {
+  background-color: rgba(117, 113, 249, 0.15) !important;
+}
+
+.bg-purple-dark {
+  background-color: #5a56c8 !important;
+}
+
+/* Text */
+.text-purple {
+  color: #7571f9 !important;
+}
+
+.text-purple-dark {
+  color: #5a56c8 !important;
+}
+
+/* Borders */
+.border-purple {
+  border-color: #7571f9 !important;
+}
+
+/* Buttons */
+.btn-purple {
+  background-color: #7571f9 !important;
+  color: #fff !important;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-purple:hover,
+.btn-purple:focus {
+  background-color: #5a56c8 !important;
+  color: #fff !important;
+}
+
+/* Outline button */
+.btn-outline-purple {
+  color: #7571f9 !important;
+  border: 1px solid #7571f9 !important;
+  background: transparent;
+  transition: 0.3s;
+}
+
+.btn-outline-purple:hover,
+.btn-outline-purple:focus {
+  background-color: #7571f9 !important;
+  color: #fff !important;
+}
