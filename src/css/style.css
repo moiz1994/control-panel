@@ -59,3 +59,19 @@
   background-color: #7571f9 !important;
   color: #fff !important;
 }
+
+.sidebar-item:hover {
+  background-color: #f5f5f5;
+}
+
+.submenu {
+  background-color: #f0f0f8; /* slightly darker */
+}
+
+.submenu .nav-link {
+  font-size: 0.9rem;
+}
+
+.submenu .nav-link:hover {
+  background-color: #e0e0f5;
+}
