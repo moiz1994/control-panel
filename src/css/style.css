@@ -75,3 +75,10 @@
 .submenu .nav-link:hover {
   background-color: #e0e0f5;
 }
+
+.active-link-class {
+  background-color: #7571f9;
+  color: white !important;
+  border-radius: 8px;
+  margin: 0 10px;
+}

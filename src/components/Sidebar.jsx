@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Nav, Tooltip } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import {
   FaTachometerAlt,
   FaChartBar,
@@ -8,8 +8,9 @@ import {
   FaFileAlt,
   FaChevronDown,
   FaChevronUp,
-  FaBars,
 } from "react-icons/fa";
+// import { NavLink } from "react-router-dom";
+import SidebarLink from "./SidebarLink";
 
 const Sidebar = ({ isCollapsed }) => {
   // state to track open/closed menus
@@ -57,13 +58,12 @@ const Sidebar = ({ isCollapsed }) => {
       {/* Navigation */}
       <Nav className="flex-column mt-3">
         {/* Dashboard */}
-        <Nav.Link
-          href="#"
-          className="text-dark d-flex align-items-center px-3 py-2"
-        >
-          <FaTachometerAlt className="me-2" />
-          {!isCollapsed && "Dashboard"}
-        </Nav.Link>
+        <SidebarLink
+          to="/"
+          icon={FaTachometerAlt}
+          label="Dashboard"
+          isCollapsed={isCollapsed}
+        />
 
         {/* BOD Report */}
         <div
