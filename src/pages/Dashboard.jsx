@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import TopNav from "../components/TopNav";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   // const navigate = useNavigate();
@@ -25,11 +26,8 @@ const Dashboard = () => {
         <TopNav toggleSideBar={toggleSidebar} />
 
         {/* Content */}
-        <div className="p-4" style={{ minHeight: "calc(100vh - 56px)" }}>
-          <h2>Welcome to the Dashboard</h2>
-          <p>
-            This is the content area. You can add cards, tables, charts here.
-          </p>
+        <div style={{ minHeight: "calc(100vh - 56px)" }}>
+          <Outlet />
         </div>
       </div>
     </div>

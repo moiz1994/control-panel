@@ -85,7 +85,7 @@ const Sidebar = ({ isCollapsed }) => {
           {/* Expand inside sidebar when not collapsed */}
           {openMenu === "bod" && (
             <div className="submenu">
-              <Nav.Link href="#" className="text-dark px-5 py-2">
+              <Nav.Link href="/bodData" className="text-dark px-5 py-2">
                 BOD Data
               </Nav.Link>
               <Nav.Link href="#" className="text-dark px-5 py-2">
@@ -276,6 +276,30 @@ const Sidebar = ({ isCollapsed }) => {
           {!isCollapsed && "Application Logs"}
         </Nav.Link>
       </Nav>
+
+      {/* <Nav className="flex-column mt-3">
+        {menuConfig.map((item) =>
+          item.children ? (
+            <SidebarMenu
+              key={item.label}
+              item={item}
+              isCollapsed={isCollapsed}
+              openMenu={openMenu}
+              hoverMenu={hoverMenu}
+              toggleMenu={toggleMenu}
+              setHoverMenu={setHoverMenu}
+            />
+          ) : (
+            <SidebarLink
+              key={item.label}
+              to={item.path}
+              icon={item.icon}
+              label={item.label}
+              isCollapsed={isCollapsed}
+            />
+          )
+        )}
+      </Nav> */}
     </div>
   );
 };

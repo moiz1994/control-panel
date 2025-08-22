@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import BodData from "./pages/BodData";
 // import Home from "./pages/Home";
 // import Edit from "./pages/Edit";
 
@@ -15,7 +17,10 @@ const App = () => {
         <Route
           path="/"
           element={isAuth ? <Dashboard /> : <Navigate to="/login" />}
-        ></Route>
+        >
+          <Route index element={<Home />} />
+          <Route path="bodData" element={<BodData />} />
+        </Route>
 
         <Route
           path="/login"

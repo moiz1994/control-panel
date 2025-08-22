@@ -77,8 +77,12 @@
 }
 
 .active-link-class {
-  background-color: #7571f9;
-  color: white !important;
-  border-radius: 8px;
-  margin: 0 10px;
+  background-color: #d3d1d1;
+  color: black !important;
+  /* border-radius: 8px; */
+  /* margin: 0 10px; */
+}
+
+.gradient-4 {
+  background-image: linear-gradient(230deg, #0e4cfd, #6a8eff);
 }
