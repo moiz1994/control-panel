@@ -7,7 +7,7 @@ const SidebarLink = ({ to, icon: Icon, label, isCollapsed, isSubMenu }) => {
       to={to}
       className={
         ({ isActive }) =>
-          `d-flex align-items-center px-3 py-2 ${
+          `d-flex align-items-center px-3 py-2 nav-link ${
             isActive ? "active-link-class" : "text-dark"
           } ${isSubMenu ? "ps-5" : ""}` // Extra padding for submenu
       }
