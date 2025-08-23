@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import BodData from "./pages/BodData";
+import ApplicationLog from "./pages/ApplicationLog";
 // import Home from "./pages/Home";
 // import Edit from "./pages/Edit";
 
@@ -20,6 +21,7 @@ const App = () => {
         >
           <Route index element={<Home />} />
           <Route path="bodData" element={<BodData />} />
+          <Route path="applicationLogs" element={<ApplicationLog />} />
         </Route>
 
         <Route

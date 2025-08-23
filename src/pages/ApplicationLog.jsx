@@ -1,0 +1,155 @@
+import { useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { InputText } from "primereact/inputtext";
+import { IconField } from "primereact/iconfield";
+import { InputIcon } from "primereact/inputicon";
+
+import { getAppInfo } from "../api/dashboard";
+import { formatDate, getSecureAppIcon } from "../utils/formatters";
+
+const ApplicationLog = () => {
+  const [appInfo, setAppInfo] = useState([]);
+  const [filters, setFilters] = useState({
+    global: { value: null, matchMode: "contains" },
+  });
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAppInfo();
+  }, []);
+
+  const fetchAppInfo = async () => {
+    const data = await getAppInfo();
+    // sort descending by date
+    const sorted = data.sort(
+      (a, b) => new Date(b.APP_UPDATED_ON) - new Date(a.APP_UPDATED_ON)
+    );
+    setAppInfo(sorted);
+    setLoading(false);
+  };
+
+  // templates
+  const iconTemplate = (rowData) => (
+    <img
+      src={getSecureAppIcon(rowData.APP_ICON)}
+      alt={rowData.APP_NAME}
+      style={{ width: "40px" }}
+    />
+  );
+
+  const urlTemplate = (rowData) =>
+    rowData.URL ? (
+      <a href={rowData.URL} target="_blank" rel="noreferrer">
+        <img
+          src="images/play_store.png"
+          alt="Play Store Icon"
+          style={{ width: "100px" }}
+        />
+      </a>
+    ) : (
+      "-"
+    );
+
+  const dateTemplate = (rowData, col) => formatDate(rowData[col.field]);
+
+  // handle global filter input
+  const onGlobalFilterChange = (e) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
+    _filters["global"].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+  };
+
+  // render search bar
+  const renderHeader = () => {
+    return (
+      <div className="d-flex justify-content-between align-items-center">
+        <h4 className="mb-3">Application Log</h4>
+        <IconField iconPosition="left">
+          <InputIcon className="pi pi-search" />
+          <InputText
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            placeholder="Search applications..."
+          />
+        </IconField>
+      </div>
+    );
+  };
+
+  const header = renderHeader();
+
+  return (
+    <div className="p-4">
+      <Card className="p-3">
+        <DataTable
+          value={appInfo}
+          paginator
+          rows={15}
+          rowsPerPageOptions={[5, 10, 20, 50]}
+          dataKey="APP_NAME"
+          filters={filters}
+          globalFilterFields={[
+            "APP_NAME",
+            "VERSION_NAME",
+            "APP_UPDATED_BY",
+            "APP_STATUS",
+          ]}
+          header={header}
+          emptyMessage="No applications found."
+          loading={loading}
+          showGridlines
+          tableStyle={{ minWidth: "50rem" }}
+        >
+          <Column header="App Icon" body={iconTemplate} />
+          <Column
+            field="APP_NAME"
+            header="App Name"
+            sortable
+            style={{ fontSize: "14px" }}
+          />
+          <Column
+            field="VERSION_NAME"
+            header="Version"
+            sortable
+            style={{ fontSize: "14px" }}
+          />
+          <Column
+            field="ROLLED_OUT_ON"
+            header="Rolled Out On"
+            body={(row) => dateTemplate(row, { field: "ROLLED_OUT_ON" })}
+            sortable
+            style={{ fontSize: "14px" }}
+          />
+          <Column
+            field="APP_UPDATED_BY"
+            header="Updated By"
+            sortable
+            style={{ fontSize: "14px" }}
+          />
+          <Column
+            field="APP_UPDATED_ON"
+            header="Updated On"
+            body={(row) => dateTemplate(row, { field: "APP_UPDATED_ON" })}
+            sortable
+            style={{ fontSize: "14px" }}
+          />
+          <Column
+            field="APP_STATUS"
+            header="Status"
+            sortable
+            style={{ fontSize: "14px" }}
+          />
+          <Column header="Download" body={urlTemplate} />
+        </DataTable>
+      </Card>
+    </div>
+  );
+};
+
+export default ApplicationLog;

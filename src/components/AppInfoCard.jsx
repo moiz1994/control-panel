@@ -1,23 +1,13 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { formatDate, getSecureAppIcon } from "../utils/formatters";
 
 const AppInfoCard = ({ appName, version, updatedOn, url, appIcon }) => {
   // Format updatedOn
-  const formattedDate = updatedOn
-    ? new Date(updatedOn).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-    : "";
+  const formattedDate = formatDate(updatedOn);
 
   // Convert appIcon URL
-  const secureAppIcon = appIcon
-    ? appIcon.replace(
-        "http://mailserver.sukkurbeverages.net:689",
-        "https://mailserver.sukkurbeverages.net:589"
-      )
-    : "";
+  const secureAppIcon = getSecureAppIcon(appIcon);
 
   return (
     <Card className="p-0">
@@ -25,7 +15,11 @@ const AppInfoCard = ({ appName, version, updatedOn, url, appIcon }) => {
         <Card.Title className="d-flex justify-content-between align-items-center">
           <h4>App Updates</h4>
           <span style={{ fontSize: "14px" }}>
-            <Link to="#" className="nav-link" style={{ color: "GrayText" }}>
+            <Link
+              to="/applicationLogs"
+              className="nav-link"
+              style={{ color: "GrayText" }}
+            >
               View All Apps
             </Link>
           </span>

@@ -268,13 +268,12 @@ const Sidebar = ({ isCollapsed }) => {
         </div>
 
         {/* Logs */}
-        <Nav.Link
-          href="#"
-          className="text-dark d-flex align-items-center px-3 py-2"
-        >
-          <FaCogs className="me-2" />
-          {!isCollapsed && "Application Logs"}
-        </Nav.Link>
+        <SidebarLink
+          to="/applicationLogs"
+          icon={FaCogs}
+          label="Application Logs"
+          isCollapsed={isCollapsed}
+        />
       </Nav>
 
       {/* <Nav className="flex-column mt-3">
