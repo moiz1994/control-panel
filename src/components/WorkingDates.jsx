@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Badge, Card, Table } from "react-bootstrap";
 import { getWorkingDate } from "../api/dashboard";
-import CustomDataTable from "./CustomDataTable";
 
 const WorkingDates = () => {
   const [workingDates, setWorkingDates] = useState([]);
@@ -54,10 +53,10 @@ const WorkingDates = () => {
     <div className="mt-3">
       <Card className="p-3">
         <h4 className="mb-3">Current Working Dates</h4>
-        <Table striped>
+        <Table striped bordered>
           <thead>
             <tr>
-              <th>#</th>
+              <th className="text-center">#</th>
               <th>Depot Name</th>
               <th>Description</th>
               <th>Working Dates</th>
@@ -66,7 +65,7 @@ const WorkingDates = () => {
           <tbody>
             {workingDates.map((item) => (
               <tr>
-                <td>{item.DEPOT_ID}</td>
+                <td className="text-center">{item.DEPOT_ID}</td>
                 <td>{item.DEPOT_NAME}</td>
                 <td>{item.DESCRIPTION}</td>
                 <td>
