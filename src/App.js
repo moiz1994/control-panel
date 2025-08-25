@@ -6,8 +6,6 @@ import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import BodData from "./pages/BodData";
 import ApplicationLog from "./pages/ApplicationLog";
-// import Home from "./pages/Home";
-// import Edit from "./pages/Edit";
 
 const App = () => {
   const isAuth = localStorage.getItem("auth");

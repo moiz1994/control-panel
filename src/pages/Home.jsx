@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import WeatherWidget from "../components/WeatherWIdget";
-import { getCounts, getAppInfo } from "../api/dashboard";
+import { getCounts, getAppInfo, getWorkingDate } from "../api/dashboard";
 import { Row } from "react-bootstrap";
 import CountCard from "../components/CountCard";
 
 import { FaUsers, FaChartBar } from "react-icons/fa";
 import AppInfoCard from "../components/AppInfoCard";
+import WorkingDates from "../components/WorkingDates";
 
 const Home = () => {
   const [userCount, setUserCount] = useState(0);
@@ -25,6 +26,7 @@ const Home = () => {
 
   const fetchAppInfo = async () => {
     const appInfo = await getAppInfo();
+    localStorage.setItem("appInfo", JSON.stringify(appInfo));
     // console.log(appInfo);
     if (appInfo.length > 0) {
       setAppInfo(appInfo.at(-1));
@@ -62,6 +64,7 @@ const Home = () => {
             />
           </div>
         </Row>
+        <WorkingDates />
       </div>
     </div>
   );
