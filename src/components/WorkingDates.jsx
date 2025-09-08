@@ -48,7 +48,6 @@ const WorkingDates = () => {
       date1.getDate() === today.getDate()
     );
   };
-
   return (
     <div className="mt-3">
       <Card className="p-3">

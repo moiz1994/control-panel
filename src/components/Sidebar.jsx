@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 // import { NavLink } from "react-router-dom";
 import SidebarLink from "./SidebarLink";
+import SidebarMenu from "./SidebarMenu";
 
 const Sidebar = ({ isCollapsed }) => {
   // state to track open/closed menus
@@ -66,7 +67,45 @@ const Sidebar = ({ isCollapsed }) => {
         />
 
         {/* BOD Report */}
-        <div
+        <SidebarMenu
+          icon={FaChartBar}
+          label="BOD Report"
+          collapsed={isCollapsed}
+          basePath="/bodData"
+        >
+          <SidebarLink
+            to="/bodData"
+            isCollapsed={isCollapsed}
+            isSubMenu={true}
+            label="BOD Data"
+          />
+          {/* <SidebarLink
+            to="/"
+            label="Report Builder"
+            isCollapsed={isCollapsed}
+            isSubMenu
+          />
+          <SidebarLink
+            to="#"
+            label="Sales Comparison"
+            isCollapsed={isCollapsed}
+            isSubMenu
+          />
+          <SidebarLink
+            to="#"
+            label="OS Report Builder"
+            isCollapsed={isCollapsed}
+            isSubMenu
+          />
+          <SidebarLink
+            to="#"
+            label="OS Sales Comparison"
+            isCollapsed={isCollapsed}
+            isSubMenu
+          /> */}
+        </SidebarMenu>
+
+        {/* <div
           onMouseEnter={() => setHoverMenu("bod")}
           onMouseLeave={() => setHoverMenu(null)}
         >
@@ -81,9 +120,9 @@ const Sidebar = ({ isCollapsed }) => {
             </span>
             {!isCollapsed &&
               (openMenu === "bod" ? <FaChevronUp /> : <FaChevronDown />)}
-          </div>
-          {/* Expand inside sidebar when not collapsed */}
-          {openMenu === "bod" && (
+          </div> */}
+        {/* Expand inside sidebar when not collapsed */}
+        {/* {openMenu === "bod" && (
             <div className="submenu">
               <Nav.Link href="/bodData" className="text-dark px-5 py-2">
                 BOD Data
@@ -101,10 +140,10 @@ const Sidebar = ({ isCollapsed }) => {
                 OS Sales Comparison
               </Nav.Link>
             </div>
-          )}
+          )} */}
 
-          {/* Hover submenu when collapsed */}
-          {isCollapsed && hoverMenu === "bod" && (
+        {/* Hover submenu when collapsed */}
+        {/* {isCollapsed && hoverMenu === "bod" && (
             <div
               className="position-absolute bg-white shadow rounded"
               style={{
@@ -131,7 +170,7 @@ const Sidebar = ({ isCollapsed }) => {
               </Nav.Link>
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* BI Report */}
         <div
