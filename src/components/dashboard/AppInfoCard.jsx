@@ -1,6 +1,6 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { formatDate, getSecureAppIcon } from "../utils/formatters";
+import { formatDate, getSecureAppIcon } from "../../utils/formatters";
 
 const AppInfoCard = ({ appName, version, updatedOn, url, appIcon }) => {
   // Format updatedOn

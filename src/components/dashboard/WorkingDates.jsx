@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Badge, Card, Table } from "react-bootstrap";
-import { getWorkingDate } from "../api/dashboard";
+import { getWorkingDate } from "../../api/dashboard";
 
 const WorkingDates = () => {
   const [workingDates, setWorkingDates] = useState([]);

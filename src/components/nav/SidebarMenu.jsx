@@ -20,7 +20,7 @@ const SidebarMenu = ({ icon: Icon, label, collapsed, children, basePath }) => {
       {/* Parent button */}
       <div
         onClick={() => !collapsed && setOpen(!open)}
-        className={`d-flex justify-content-between align-items-center px-3 py-2 rounded cursor-pointer ${
+        className={`d-flex justify-content-between align-items-center px-3 py-2 cursor-pointer ${
           isActiveGroup ? "active-link-class" : "text-dark"
         }`}
       >

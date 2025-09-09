@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import WeatherWidget from "../components/WeatherWIdget";
+import WeatherWidget from "../components/dashboard/WeatherWIdget";
 import { getCounts, getAppInfo, getWorkingDate } from "../api/dashboard";
 import { Row } from "react-bootstrap";
-import CountCard from "../components/CountCard";
+import CountCard from "../components/dashboard/CountCard";
 
 import { FaUsers, FaChartBar } from "react-icons/fa";
-import AppInfoCard from "../components/AppInfoCard";
-import WorkingDates from "../components/WorkingDates";
+import AppInfoCard from "../components/dashboard/AppInfoCard";
+import WorkingDates from "../components/dashboard/WorkingDates";
 
 const Home = () => {
   const [userCount, setUserCount] = useState(0);

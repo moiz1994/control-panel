@@ -1,7 +1,7 @@
 // import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Sidebar from "../components/Sidebar";
-import TopNav from "../components/TopNav";
+import Sidebar from "../components/nav/Sidebar";
+import TopNav from "../components/nav/TopNav";
 import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
