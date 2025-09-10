@@ -71,7 +71,7 @@ const Sidebar = ({ isCollapsed }) => {
           icon={FaChartBar}
           label="BOD Report"
           collapsed={isCollapsed}
-          basePath="/bodData"
+          basePath="/bodReport"
         >
           <SidebarLink
             to="/bodData"
@@ -79,30 +79,30 @@ const Sidebar = ({ isCollapsed }) => {
             isSubMenu={true}
             label="BOD Data"
           />
-          {/* <SidebarLink
-            to="/"
+          <SidebarLink
+            to="/reportBuilder"
             label="Report Builder"
             isCollapsed={isCollapsed}
             isSubMenu
           />
           <SidebarLink
-            to="#"
+            to="/salesCompareReport"
             label="Sales Comparison"
             isCollapsed={isCollapsed}
             isSubMenu
           />
           <SidebarLink
-            to="#"
+            to="/osReportBuilder"
             label="OS Report Builder"
             isCollapsed={isCollapsed}
             isSubMenu
           />
           <SidebarLink
-            to="#"
+            to="/osSalesCompareReport"
             label="OS Sales Comparison"
             isCollapsed={isCollapsed}
             isSubMenu
-          /> */}
+          />
         </SidebarMenu>
 
         {/* <div

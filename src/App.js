@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import BodData from "./pages/BodData";
 import ApplicationLog from "./pages/ApplicationLog";
+import ComingSoon from "./pages/ComingSoon";
 
 const App = () => {
   const isAuth = localStorage.getItem("auth");
@@ -19,6 +20,10 @@ const App = () => {
         >
           <Route index element={<Home />} />
           <Route path="bodData" element={<BodData />} />
+          <Route path="reportBuilder" element={<ComingSoon />} />
+          <Route path="salesCompareReport" element={<ComingSoon />} />
+          <Route path="osReportBuilder" element={<ComingSoon />} />
+          <Route path="osSalesCompareReport" element={<ComingSoon />} />
           <Route path="applicationLogs" element={<ApplicationLog />} />
         </Route>
 
