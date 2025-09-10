@@ -2,24 +2,22 @@ import { Card, Form, Col, Row } from "react-bootstrap";
 import EditableTripleForm from "./EditableTripleForm";
 
 const BodMonthlyClosing = ({
+  monthData,
   selectedMonth,
   setSelectedMonth,
   allMonths,
-  month,
   selectedYear,
   setSelectedYear,
-  year,
   setDays,
   days,
-  selectDay,
 }) => {
   return (
     <div>
-      <Card.Title>BOD Monthly Closing</Card.Title>
+      <Card.Title className="mb-5">BOD Monthly Closing</Card.Title>
 
       {/* Month */}
       <Form.Group as={Row} className="mb-3">
-        <Form.Label column sm="2" md="2">
+        <Form.Label column sm="2" md="2" className="text-muted">
           Month
         </Form.Label>
         <Col sm="8" md="8">
@@ -34,15 +32,15 @@ const BodMonthlyClosing = ({
             ))}
           </Form.Select>
         </Col>
-        <Form.Label column sm="2" md="2">
-          {month}
+        <Form.Label column sm="2" md="2" className="text-muted">
+          {monthData.monthName}
         </Form.Label>
       </Form.Group>
 
       {/* Year */}
       <EditableTripleForm
         label="Year"
-        initialValues={year}
+        initialValues={monthData.cyear}
         value={selectedYear}
         setValue={setSelectedYear}
       />
@@ -50,9 +48,10 @@ const BodMonthlyClosing = ({
       {/* Days */}
       <EditableTripleForm
         label="Month Total Days"
-        initialValues={selectDay}
+        initialValues={monthData.monthDays}
         value={days}
         setValue={setDays}
+        isReadOnly={true}
       />
     </div>
   );

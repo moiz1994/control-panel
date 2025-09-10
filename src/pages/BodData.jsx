@@ -1,16 +1,38 @@
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Card, Container, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { getMonths, getMonthTargets } from "../api/bod";
+import { getMonths, getMonthTargets, updateBodData } from "../api/bod";
 import BodMonthlyClosing from "../components/bod/BodMonthlyClosing";
 import BodMonthlyTarget from "../components/bod/BodMonthlyTarget";
 
 const BodData = () => {
-  const [month, setMonth] = useState("");
+  const [monthData, setMonthData] = useState(null);
+  const [targetData, setTargetData] = useState(null);
+
+  // closing state
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [year, setYear] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
-  const [days, setDays] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
+
+  // target state
+  const [targetRaw, setTargetRaw] = useState("");
+  const [targetConvertedCases, setTargetConvertedCases] = useState("");
+  const [OnzCases, setOnzCases] = useState("");
+
+  const [targetRawNCB, setTargetRawNCB] = useState("");
+  const [targetConvertedNCB, setTargetConvertedNCB] = useState("");
+  const [OnzCasesNCB, setOnzCasesNCB] = useState("");
+
+  const [targetRawCSD, setTargetRawCSD] = useState("");
+  const [targetConvertedCSD, setTargetConvertedCSD] = useState("");
+  const [OnzCasesCSD, setOnzCasesCSD] = useState("");
+
+  const [canTargetValue, setCanTargetValue] = useState("");
+
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    variant: "",
+    message: "",
+  });
 
   const allMonths = [
     "Jan",
@@ -49,13 +71,14 @@ const BodData = () => {
 
   useEffect(() => {
     fetchMonthData();
+    fetchTargets();
   }, []);
 
   useEffect(() => {
     if (selectedMonth && selectedYear) {
       const monthIndex = allMonths.indexOf(selectedMonth); // convert "Sep" → 8
       const totalDays = getDaysInMonth(monthIndex, parseInt(selectedYear));
-      setDays(totalDays);
+      setSelectedDay(totalDays);
     }
   }, [selectedMonth, selectedYear]); // runs whenever month or year changes
 
@@ -63,12 +86,10 @@ const BodData = () => {
     try {
       const data = await getMonths();
       if (data.length > 0) {
-        setMonth(data[0].monthName);
+        setMonthData(data[0]);
         setSelectedMonth(data[0].monthName);
-        setYear(data[0].cyear);
         setSelectedYear(data[0].cyear);
-        setSelectedDay(data[0].monthDays);
-        setDays(
+        setSelectedDay(
           getDaysInMonth(monthMap[data[0].monthName], parseInt(data[0].cyear))
         );
       }
@@ -77,30 +98,143 @@ const BodData = () => {
     }
   };
 
+  const fetchTargets = async () => {
+    try {
+      const data = await getMonthTargets();
+      setTargetData(data);
+
+      const { monthToDate, canTarget } = data;
+      setTargetRaw(monthToDate.targetRaw);
+      setTargetConvertedCases(monthToDate.targetConvertedCases);
+      setOnzCases(monthToDate.OnzCases);
+
+      setTargetRawNCB(monthToDate.targetRawNCB);
+      setTargetConvertedNCB(monthToDate.targetConvertedNCB);
+      setOnzCasesNCB(monthToDate.OnzCasesNCB);
+
+      setTargetRawCSD(monthToDate.targetRawCSD);
+      setTargetConvertedCSD(monthToDate.targetConvertedCSD);
+      setOnzCasesCSD(monthToDate.OnzCasesCSD);
+
+      setCanTargetValue(canTarget[0].sales_target);
+    } catch (error) {
+      console.error("Error Fetching target data:", error);
+    }
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      closing: {
+        month: selectedMonth,
+        year: selectedYear,
+        day: selectedDay,
+      },
+      targets: {
+        targetRaw,
+        targetConvertedCases,
+        OnzCases,
+        targetRawNCB,
+        targetConvertedNCB,
+        OnzCasesNCB,
+        targetRawCSD,
+        targetConvertedCSD,
+        OnzCasesCSD,
+        canTargetValue,
+      },
+    };
+
+    try {
+      const response = await updateBodData(payload);
+      if (response.success) {
+        setShowAlert({
+          show: true,
+          variant: "success",
+          message: response.message,
+        });
+      } else {
+        setShowAlert({
+          show: true,
+          variant: "danger",
+          message: response.message || "Failed to update Data",
+        });
+      }
+    } catch (error) {
+      setShowAlert({
+        show: true,
+        variant: "danger",
+        message: "An error occurred while updating data.",
+      });
+    }
+  };
+
   return (
     <div>
-      <Container fluid className="mt-3">
+      <Container fluid className="p-4">
+        {showAlert.show && (
+          <Alert
+            variant={showAlert.variant}
+            onClose={() => setShowAlert({ ...showAlert, show: false })}
+            dismissible
+          >
+            {showAlert.message}
+          </Alert>
+        )}
         <Form>
-          <Card>
+          <Card className="px-2 py-3">
             <Card.Body>
-              <BodMonthlyClosing
-                selectedMonth={selectedMonth}
-                setSelectedMonth={setSelectedMonth}
-                allMonths={allMonths}
-                month={month}
-                selectedYear={selectedYear}
-                setSelectedYear={setSelectedYear}
-                year={year}
-                setDays={setDays}
-                selectDay={selectedDay}
-                days={days}
-              />
+              {/* Monthly Closing */}
+              {monthData && (
+                <BodMonthlyClosing
+                  monthData={monthData}
+                  selectedMonth={selectedMonth}
+                  setSelectedMonth={setSelectedMonth}
+                  allMonths={allMonths}
+                  selectedYear={selectedYear}
+                  setSelectedYear={setSelectedYear}
+                  setDays={setSelectedDay}
+                  days={selectedDay}
+                />
+              )}
 
               <hr className="my-6" />
 
-              <BodMonthlyTarget />
+              {targetData && (
+                <BodMonthlyTarget
+                  monthToDate={targetData.monthToDate}
+                  canTarget={targetData.canTarget}
+                  targetRaw={targetRaw}
+                  setTargetRaw={setTargetRaw}
+                  targetConvertedCases={targetConvertedCases}
+                  setTargetConvertedCases={setTargetConvertedCases}
+                  OnzCases={OnzCases}
+                  setOnzCases={setOnzCases}
+                  targetRawNCB={targetRawNCB}
+                  setTargetRawNCB={setTargetRawNCB}
+                  targetConvertedNCB={targetConvertedNCB}
+                  setTargetConvertedNCB={setTargetConvertedNCB}
+                  OnzCasesNCB={OnzCasesNCB}
+                  setOnzCasesNCB={setOnzCasesNCB}
+                  targetRawCSD={targetRawCSD}
+                  setTargetRawCSD={setTargetRawCSD}
+                  targetConvertedCSD={targetConvertedCSD}
+                  setTargetConvertedCSD={setTargetConvertedCSD}
+                  OnzCasesCSD={OnzCasesCSD}
+                  setOnzCasesCSD={setOnzCasesCSD}
+                  canTargetValue={canTargetValue}
+                  setCanTargetValue={setCanTargetValue}
+                />
+              )}
 
-              <Button variant="success">Update</Button>
+              <Button
+                variant="success"
+                type="submit"
+                className="mt-2 float-end"
+                onClick={handleUpdate}
+              >
+                Update
+              </Button>
             </Card.Body>
           </Card>
         </Form>
