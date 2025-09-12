@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 
-import { getAppInfo } from "../api/dashboard";
 import { formatDate, getSecureAppIcon } from "../utils/formatters";
 import CustomDataTable from "../components/CustomDataTable";
 
 const ApplicationLog = () => {
   const [appInfo, setAppInfo] = useState([]);
-  const [filters, setFilters] = useState({
-    global: { value: null, matchMode: "contains" },
-  });
-  const [globalFilterValue, setGlobalFilterValue] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [filters, setFilters] = useState({
+  //   global: { value: null, matchMode: "contains" },
+  // });
+  // const [globalFilterValue, setGlobalFilterValue] = useState("");
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchAppInfo();
@@ -36,7 +35,6 @@ const ApplicationLog = () => {
       (a, b) => new Date(b.APP_UPDATED_ON) - new Date(a.APP_UPDATED_ON)
     );
     setAppInfo(sorted);
-    setLoading(false);
   };
 
   // templates
@@ -85,7 +83,7 @@ const ApplicationLog = () => {
   ];
 
   return (
-    <div className="p-4">
+    <div>
       <Card className="p-3">
         <CustomDataTable
           data={appInfo}

@@ -79,7 +79,7 @@ const Sidebar = ({ isCollapsed }) => {
             isSubMenu={true}
             label="BOD Data"
           />
-          <SidebarLink
+          {/* <SidebarLink
             to="/reportBuilder"
             label="Report Builder"
             isCollapsed={isCollapsed}
@@ -102,78 +102,24 @@ const Sidebar = ({ isCollapsed }) => {
             label="OS Sales Comparison"
             isCollapsed={isCollapsed}
             isSubMenu
-          />
+          /> */}
         </SidebarMenu>
 
-        {/* <div
-          onMouseEnter={() => setHoverMenu("bod")}
-          onMouseLeave={() => setHoverMenu(null)}
-        >
-          <div
-            className="text-dark d-flex align-items-center justify-content-between px-3 py-2 sidebar-item"
-            onClick={() => toggleMenu("bod")}
-            style={{ cursor: "pointer" }}
-          >
-            <span>
-              <FaChartBar className="me-2" />
-              {!isCollapsed && "BOD Report"}
-            </span>
-            {!isCollapsed &&
-              (openMenu === "bod" ? <FaChevronUp /> : <FaChevronDown />)}
-          </div> */}
-        {/* Expand inside sidebar when not collapsed */}
-        {/* {openMenu === "bod" && (
-            <div className="submenu">
-              <Nav.Link href="/bodData" className="text-dark px-5 py-2">
-                BOD Data
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark px-5 py-2">
-                Report Builder
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark px-5 py-2">
-                Sales Comparison
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark px-5 py-2">
-                OS Report Builder
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark px-5 py-2">
-                OS Sales Comparison
-              </Nav.Link>
-            </div>
-          )} */}
-
-        {/* Hover submenu when collapsed */}
-        {/* {isCollapsed && hoverMenu === "bod" && (
-            <div
-              className="position-absolute bg-white shadow rounded"
-              style={{
-                left: "80px",
-                top: "140px", // adjust to align with menu item
-                zIndex: 1000,
-                minWidth: "200px",
-              }}
-            >
-              <Nav.Link href="#" className="text-dark px-3 py-2">
-                BOD Data
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark px-3 py-2">
-                Report Builder
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark px-3 py-2">
-                Sales Comparison
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark px-3 py-2">
-                OS Report Builder
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark px-3 py-2">
-                OS Sales Comparison
-              </Nav.Link>
-            </div>
-          )}
-        </div> */}
-
         {/* BI Report */}
-        <div
+        <SidebarMenu
+          icon={FaFileAlt}
+          label="BI Report Portal"
+          collapsed={isCollapsed}
+          basePath="/biReport"
+        >
+          <SidebarLink
+            to="/mainMenu"
+            isCollapsed={isCollapsed}
+            isSubMenu={true}
+            label="Main Menu"
+          />
+        </SidebarMenu>
+        {/* <div
           onMouseEnter={() => setHoverMenu("bi")}
           onMouseLeave={() => setHoverMenu(null)}
         >
@@ -188,9 +134,9 @@ const Sidebar = ({ isCollapsed }) => {
             </span>
             {!isCollapsed &&
               (openMenu === "bi" ? <FaChevronUp /> : <FaChevronDown />)}
-          </div>
-          {/* Expand inside sidebar when not collapsed */}
-          {openMenu === "bi" && (
+          </div> */}
+        {/* Expand inside sidebar when not collapsed */}
+        {/* {openMenu === "bi" && (
             <div className="submenu">
               <Nav.Link href="#" className="text-dark px-5 py-2">
                 Main Menu
@@ -211,10 +157,10 @@ const Sidebar = ({ isCollapsed }) => {
                 Upload Report
               </Nav.Link>
             </div>
-          )}
+          )} */}
 
-          {/* HOver submenu when collapsed */}
-          {isCollapsed && hoverMenu === "bi" && (
+        {/* HOver submenu when collapsed */}
+        {/* {isCollapsed && hoverMenu === "bi" && (
             <div
               className="position-absolute bg-white shadow rounded"
               style={{
@@ -243,8 +189,8 @@ const Sidebar = ({ isCollapsed }) => {
                 Upload Report
               </Nav.Link>
             </div>
-          )}
-        </div>
+          )} 
+        </div>*/}
 
         {/* HR */}
         <div

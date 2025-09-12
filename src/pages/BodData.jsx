@@ -1,4 +1,4 @@
-import { Alert, Button, Card, Container, Form } from "react-bootstrap";
+import { Alert, Button, Card, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { getMonths, getMonthTargets, updateBodData } from "../api/bod";
 import BodMonthlyClosing from "../components/bod/BodMonthlyClosing";
@@ -171,74 +171,72 @@ const BodData = () => {
 
   return (
     <div>
-      <Container fluid className="p-4">
-        {showAlert.show && (
-          <Alert
-            variant={showAlert.variant}
-            onClose={() => setShowAlert({ ...showAlert, show: false })}
-            dismissible
-          >
-            {showAlert.message}
-          </Alert>
-        )}
-        <Form>
-          <Card className="px-2 py-3">
-            <Card.Body>
-              {/* Monthly Closing */}
-              {monthData && (
-                <BodMonthlyClosing
-                  monthData={monthData}
-                  selectedMonth={selectedMonth}
-                  setSelectedMonth={setSelectedMonth}
-                  allMonths={allMonths}
-                  selectedYear={selectedYear}
-                  setSelectedYear={setSelectedYear}
-                  setDays={setSelectedDay}
-                  days={selectedDay}
-                />
-              )}
+      {showAlert.show && (
+        <Alert
+          variant={showAlert.variant}
+          onClose={() => setShowAlert({ ...showAlert, show: false })}
+          dismissible
+        >
+          {showAlert.message}
+        </Alert>
+      )}
+      <Form>
+        <Card className="px-2 py-3">
+          <Card.Body>
+            {/* Monthly Closing */}
+            {monthData && (
+              <BodMonthlyClosing
+                monthData={monthData}
+                selectedMonth={selectedMonth}
+                setSelectedMonth={setSelectedMonth}
+                allMonths={allMonths}
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+                setDays={setSelectedDay}
+                days={selectedDay}
+              />
+            )}
 
-              <hr className="my-6" />
+            <hr className="my-6" />
 
-              {targetData && (
-                <BodMonthlyTarget
-                  monthToDate={targetData.monthToDate}
-                  canTarget={targetData.canTarget}
-                  targetRaw={targetRaw}
-                  setTargetRaw={setTargetRaw}
-                  targetConvertedCases={targetConvertedCases}
-                  setTargetConvertedCases={setTargetConvertedCases}
-                  OnzCases={OnzCases}
-                  setOnzCases={setOnzCases}
-                  targetRawNCB={targetRawNCB}
-                  setTargetRawNCB={setTargetRawNCB}
-                  targetConvertedNCB={targetConvertedNCB}
-                  setTargetConvertedNCB={setTargetConvertedNCB}
-                  OnzCasesNCB={OnzCasesNCB}
-                  setOnzCasesNCB={setOnzCasesNCB}
-                  targetRawCSD={targetRawCSD}
-                  setTargetRawCSD={setTargetRawCSD}
-                  targetConvertedCSD={targetConvertedCSD}
-                  setTargetConvertedCSD={setTargetConvertedCSD}
-                  OnzCasesCSD={OnzCasesCSD}
-                  setOnzCasesCSD={setOnzCasesCSD}
-                  canTargetValue={canTargetValue}
-                  setCanTargetValue={setCanTargetValue}
-                />
-              )}
+            {targetData && (
+              <BodMonthlyTarget
+                monthToDate={targetData.monthToDate}
+                canTarget={targetData.canTarget}
+                targetRaw={targetRaw}
+                setTargetRaw={setTargetRaw}
+                targetConvertedCases={targetConvertedCases}
+                setTargetConvertedCases={setTargetConvertedCases}
+                OnzCases={OnzCases}
+                setOnzCases={setOnzCases}
+                targetRawNCB={targetRawNCB}
+                setTargetRawNCB={setTargetRawNCB}
+                targetConvertedNCB={targetConvertedNCB}
+                setTargetConvertedNCB={setTargetConvertedNCB}
+                OnzCasesNCB={OnzCasesNCB}
+                setOnzCasesNCB={setOnzCasesNCB}
+                targetRawCSD={targetRawCSD}
+                setTargetRawCSD={setTargetRawCSD}
+                targetConvertedCSD={targetConvertedCSD}
+                setTargetConvertedCSD={setTargetConvertedCSD}
+                OnzCasesCSD={OnzCasesCSD}
+                setOnzCasesCSD={setOnzCasesCSD}
+                canTargetValue={canTargetValue}
+                setCanTargetValue={setCanTargetValue}
+              />
+            )}
 
-              <Button
-                variant="success"
-                type="submit"
-                className="mt-2 float-end"
-                onClick={handleUpdate}
-              >
-                Update
-              </Button>
-            </Card.Body>
-          </Card>
-        </Form>
-      </Container>
+            <Button
+              variant="success"
+              type="submit"
+              className="mt-2 float-end"
+              onClick={handleUpdate}
+            >
+              Update
+            </Button>
+          </Card.Body>
+        </Card>
+      </Form>
     </div>
   );
 };
