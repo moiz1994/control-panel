@@ -4,10 +4,16 @@ import { getMenus, saveMenu } from "../api/birt-panel";
 import CustomDataTable from "../components/CustomDataTable";
 import InputLabelGroup from "../components/InputLabelGroup";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { Colors } from "../utils/colors";
+import CustomModal from "../components/CustomModal";
 
 const BIMainMenu = () => {
   const [menuName, setMenuName] = useState("");
   const [menus, setMenus] = useState([]);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [updateMenuName, setUpdateMenuName] = useState("");
+  const [selectedMenu, setSelectedMenu] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +23,13 @@ const BIMainMenu = () => {
       if (response.success) {
         setMenuName("");
         fetchMenus();
+        toast.success(response.message, {
+          position: "bottom-right",
+        });
       } else {
+        toast.error(response.message, {
+          position: "bottom-right",
+        });
         console.error("Failed to save menu:", response.message);
       }
     } catch (error) {
@@ -39,16 +51,22 @@ const BIMainMenu = () => {
     }
   };
 
+  const handleClose = () => setShowUpdateModal(false);
+  const handleShow = () => setShowUpdateModal(true);
+
+  const handleEdit = (rowData) => {
+    alert("Test");
+    setSelectedMenu(rowData); // store row being edited
+    setUpdateMenuName(rowData.menu_name); // preload current value
+    setShowUpdateModal(true);
+  };
+
   const urlTemplate = (rowData) => (
     <div>
-      <FaEdit
-        color="#8bc34a"
-        onClick={() => {
-          // open a modal to edit the menu with id
-        }}
-      />
+      {console.log(rowData)}
+      <FaEdit color={Colors.green} onClick={() => handleEdit(rowData)} />
       <FaTrash
-        color="#c34a4e"
+        color={Colors.red}
         onClick={() => {
           // open a modal to confirm if you want to delete
         }}
@@ -96,6 +114,27 @@ const BIMainMenu = () => {
           title="Main Menu List"
         />
       </Card>
+
+      <CustomModal
+        show={showUpdateModal}
+        handleClose={handleClose}
+        heading="Update Menu"
+        buttonText="Update"
+        handleSave={() => {
+          console.log("Saving:", selectedMenu?.menu_id, updateMenuName);
+          // TODO: call update API here
+        }}
+      >
+        <Form>
+          <InputLabelGroup
+            label="Menu Title"
+            value={updateMenuName}
+            setValue={setUpdateMenuName}
+            isReadable={false}
+            type="text"
+          />
+        </Form>
+      </CustomModal>
     </div>
   );
 };

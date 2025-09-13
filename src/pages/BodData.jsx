@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getMonths, getMonthTargets, updateBodData } from "../api/bod";
 import BodMonthlyClosing from "../components/bod/BodMonthlyClosing";
 import BodMonthlyTarget from "../components/bod/BodMonthlyTarget";
+import { toast } from "react-toastify";
 
 const BodData = () => {
   const [monthData, setMonthData] = useState(null);
@@ -148,16 +149,22 @@ const BodData = () => {
     try {
       const response = await updateBodData(payload);
       if (response.success) {
-        setShowAlert({
-          show: true,
-          variant: "success",
-          message: response.message,
+        // setShowAlert({
+        //   show: true,
+        //   variant: "success",
+        //   message: response.message,
+        // });
+        toast.success(response.message, {
+          position: "bottom-right",
         });
       } else {
-        setShowAlert({
-          show: true,
-          variant: "danger",
-          message: response.message || "Failed to update Data",
+        // setShowAlert({
+        //   show: true,
+        //   variant: "danger",
+        //   message: response.message || "Failed to update Data",
+        // });
+        toast.error(response.message || "Failed to update Data", {
+          position: "bottom-right",
         });
       }
     } catch (error) {
@@ -171,15 +178,6 @@ const BodData = () => {
 
   return (
     <div>
-      {showAlert.show && (
-        <Alert
-          variant={showAlert.variant}
-          onClose={() => setShowAlert({ ...showAlert, show: false })}
-          dismissible
-        >
-          {showAlert.message}
-        </Alert>
-      )}
       <Form>
         <Card className="px-2 py-3">
           <Card.Body>

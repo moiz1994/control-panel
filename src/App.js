@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import BodData from "./pages/BodData";
 import ApplicationLog from "./pages/ApplicationLog";
 import BIMainMenu from "./pages/BIMainMenu";
+import { ToastContainer } from "react-toastify";
 // import ComingSoon from "./pages/ComingSoon";
 
 const App = () => {
@@ -14,6 +15,18 @@ const App = () => {
 
   return (
     <div className="bg-gray">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Routes>
         <Route
           path="/"
