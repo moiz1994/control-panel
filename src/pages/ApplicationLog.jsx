@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 
 import { formatDate, getSecureAppIcon } from "../utils/formatters";
 import CustomDataTable from "../components/CustomDataTable";
@@ -83,7 +83,7 @@ const ApplicationLog = () => {
   ];
 
   return (
-    <div>
+    <Container fluid className="p-4">
       <Card className="p-3">
         <CustomDataTable
           data={appInfo}
@@ -92,7 +92,7 @@ const ApplicationLog = () => {
           title="Application Log"
         />
       </Card>
-    </div>
+    </Container>
   );
 };
 

@@ -7,10 +7,10 @@ const InputLabelGroup = ({ label, value, setValue, isReadable, type }) => {
         as={Row}
         className="mb-3 d-flex justify-content-center align-items-center"
       >
-        <Form.Label column sm="2" className="text-muted">
+        <Form.Label column sm="4" md="2" className="text-muted">
           {label}
         </Form.Label>
-        <Col sm="10" md="10">
+        <Col sm="8" md="10">
           <Form.Control
             type={type}
             value={value}

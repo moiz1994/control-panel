@@ -7,9 +7,16 @@ const CustomModal = ({
   handleSave,
   buttonText,
   children,
+  size,
 }) => {
   return (
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      centered
+      size={size}
+      aria-labelledby="contained-modal-title-vcenter"
+    >
       <Modal.Header closeButton>
         <Modal.Title>{heading}</Modal.Title>
       </Modal.Header>

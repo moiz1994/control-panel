@@ -1,4 +1,4 @@
-import { Alert, Button, Card, Form } from "react-bootstrap";
+import { Container, Button, Card, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { getMonths, getMonthTargets, updateBodData } from "../api/bod";
 import BodMonthlyClosing from "../components/bod/BodMonthlyClosing";
@@ -28,12 +28,6 @@ const BodData = () => {
   const [OnzCasesCSD, setOnzCasesCSD] = useState("");
 
   const [canTargetValue, setCanTargetValue] = useState("");
-
-  const [showAlert, setShowAlert] = useState({
-    show: false,
-    variant: "",
-    message: "",
-  });
 
   const allMonths = [
     "Jan",
@@ -73,7 +67,7 @@ const BodData = () => {
   useEffect(() => {
     fetchMonthData();
     fetchTargets();
-  }, []);
+  });
 
   useEffect(() => {
     if (selectedMonth && selectedYear) {
@@ -168,16 +162,14 @@ const BodData = () => {
         });
       }
     } catch (error) {
-      setShowAlert({
-        show: true,
-        variant: "danger",
-        message: "An error occurred while updating data.",
+      toast.error("An error occurred while updating data.", {
+        position: "bottom-right",
       });
     }
   };
 
   return (
-    <div>
+    <Container fluid className="p-4">
       <Form>
         <Card className="px-2 py-3">
           <Card.Body>
@@ -235,7 +227,7 @@ const BodData = () => {
           </Card.Body>
         </Card>
       </Form>
-    </div>
+    </Container>
   );
 };
 

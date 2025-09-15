@@ -3,7 +3,6 @@ import { useState } from "react";
 import Sidebar from "../components/nav/Sidebar";
 import TopNav from "../components/nav/TopNav";
 import { Outlet } from "react-router-dom";
-import { Container } from "react-bootstrap";
 
 const Dashboard = () => {
   // const navigate = useNavigate();
@@ -28,9 +27,7 @@ const Dashboard = () => {
 
         {/* Content */}
         <div style={{ minHeight: "calc(100vh - 56px)" }}>
-          <Container fluid className="p-4">
-            <Outlet />
-          </Container>
+          <Outlet />
         </div>
       </div>
     </div>

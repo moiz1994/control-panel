@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { getMenus, saveMenu } from "../api/birt-panel";
+import { Button, Card, Container, Form } from "react-bootstrap";
+import { deleteMenu, getMenus, saveMenu, updateMenu } from "../api/birt-panel";
 import CustomDataTable from "../components/CustomDataTable";
 import InputLabelGroup from "../components/InputLabelGroup";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Colors } from "../utils/colors";
 import CustomModal from "../components/CustomModal";
+import ConfirmModal from "../components/ConfirmModal";
 
 const BIMainMenu = () => {
   const [menuName, setMenuName] = useState("");
@@ -14,6 +15,38 @@ const BIMainMenu = () => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updateMenuName, setUpdateMenuName] = useState("");
   const [selectedMenu, setSelectedMenu] = useState(null);
+  const [confirmDialog, setConfirmDialog] = useState(false);
+  const [deleteMenuID, setDeleteMenuID] = useState(0);
+
+  useEffect(() => {
+    fetchMenus();
+  }, []);
+
+  const fetchMenus = async () => {
+    try {
+      const data = await getMenus();
+      const sorted = data.sort((a, b) => a.menu_id - b.menu_id);
+      setMenus(sorted);
+    } catch (error) {
+      console.error("Error fetching menus:", error);
+    }
+  };
+
+  const handleClose = () => setShowUpdateModal(false);
+
+  const handleShowEditDialog = (rowData) => {
+    setSelectedMenu(rowData); // store row being edited
+    setUpdateMenuName(rowData.menu_name); // preload current value
+    setShowUpdateModal(true);
+  };
+
+  const handleConfirmDialogClose = () => setConfirmDialog(false);
+
+  const handleConfirmDialog = (rowData) => {
+    setDeleteMenuID(rowData.menu_id);
+    setConfirmDialog(true);
+    console.log(rowData.menu_id);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,39 +70,62 @@ const BIMainMenu = () => {
     }
   };
 
-  useEffect(() => {
-    fetchMenus();
-  }, []);
-
-  const fetchMenus = async () => {
+  const handleUpdate = async () => {
     try {
-      const data = await getMenus();
-      const sorted = data.sort((a, b) => a.menu_id - b.menu_id);
-      setMenus(sorted);
-    } catch (error) {
-      console.error("Error fetching menus:", error);
+      const menuID = selectedMenu?.menu_id;
+
+      const response = await updateMenu(menuID, updateMenuName);
+      // console.log(response);
+      if (response.success) {
+        setSelectedMenu(null);
+        fetchMenus();
+        toast.success(response.message, {
+          position: "bottom-right",
+        });
+      } else {
+        toast.error(response.message, {
+          position: "bottom-right",
+        });
+        console.error("Failed to update menu:", response.message);
+      }
+      handleClose();
+    } catch (err) {
+      console.error("Error updating", err);
     }
   };
 
-  const handleClose = () => setShowUpdateModal(false);
-  const handleShow = () => setShowUpdateModal(true);
-
-  const handleEdit = (rowData) => {
-    alert("Test");
-    setSelectedMenu(rowData); // store row being edited
-    setUpdateMenuName(rowData.menu_name); // preload current value
-    setShowUpdateModal(true);
+  const handleDelete = async () => {
+    try {
+      const response = await deleteMenu(deleteMenuID);
+      console.log("Response", response);
+      console.log("ID", deleteMenuID);
+      if (response.success) {
+        setDeleteMenuID(null);
+        fetchMenus();
+        toast.success(response.message, {
+          position: "bottom-right",
+        });
+      } else {
+        toast.error(response.message, {
+          position: "bottom-right",
+        });
+        console.error("Failed to update menu:", response.message);
+      }
+      handleConfirmDialogClose();
+    } catch (err) {
+      console.error("Error deleting", err);
+    }
   };
 
   const urlTemplate = (rowData) => (
     <div>
-      {console.log(rowData)}
-      <FaEdit color={Colors.green} onClick={() => handleEdit(rowData)} />
+      <FaEdit
+        color={Colors.green}
+        onClick={() => handleShowEditDialog(rowData)}
+      />
       <FaTrash
         color={Colors.red}
-        onClick={() => {
-          // open a modal to confirm if you want to delete
-        }}
+        onClick={() => handleConfirmDialog(rowData)}
       />
     </div>
   );
@@ -81,7 +137,7 @@ const BIMainMenu = () => {
   ];
 
   return (
-    <div>
+    <Container fluid className="p-4">
       <Card className="p-3 mb-3">
         <Card.Body>
           <Card.Title className="mb-3">Create Main Menu</Card.Title>
@@ -120,10 +176,8 @@ const BIMainMenu = () => {
         handleClose={handleClose}
         heading="Update Menu"
         buttonText="Update"
-        handleSave={() => {
-          console.log("Saving:", selectedMenu?.menu_id, updateMenuName);
-          // TODO: call update API here
-        }}
+        handleSave={handleUpdate}
+        size="lg"
       >
         <Form>
           <InputLabelGroup
@@ -135,7 +189,16 @@ const BIMainMenu = () => {
           />
         </Form>
       </CustomModal>
-    </div>
+
+      <ConfirmModal
+        show={confirmDialog}
+        handleClose={handleConfirmDialogClose}
+        heading="Are you sure you want to DELETE?"
+        negativeText="No"
+        positiveText="Yes"
+        handleConfirm={handleDelete}
+      />
+    </Container>
   );
 };
 

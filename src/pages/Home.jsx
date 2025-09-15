@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import WeatherWidget from "../components/dashboard/WeatherWIdget";
-import { getCounts, getAppInfo, getWorkingDate } from "../api/dashboard";
+import { getCounts, getAppInfo } from "../api/dashboard";
 import { Row } from "react-bootstrap";
 import CountCard from "../components/dashboard/CountCard";
 
