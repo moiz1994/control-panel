@@ -8,6 +8,7 @@ import BodData from "./pages/BodData";
 import ApplicationLog from "./pages/ApplicationLog";
 import BIMainMenu from "./pages/BIMainMenu";
 import { ToastContainer } from "react-toastify";
+import ReportCreate from "./pages/ReportCreate";
 // import ComingSoon from "./pages/ComingSoon";
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="osSalesCompareReport" element={<ComingSoon />} /> */}
 
           <Route path="mainMenu" element={<BIMainMenu />} />
+          <Route path="reportCreate" element={<ReportCreate />} />
 
           <Route path="applicationLogs" element={<ApplicationLog />} />
         </Route>

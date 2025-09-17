@@ -20,10 +20,18 @@ const ConfirmModal = ({
       </Modal.Header>
       <Modal.Body>
         <div className="d-flex justify-content-evenly align-items-center">
-          <Button variant="danger" onClick={handleClose}>
+          <Button
+            variant="danger"
+            onClick={handleClose}
+            style={{ width: "200px" }}
+          >
             {negativeText}
           </Button>
-          <Button variant="success" onClick={handleConfirm}>
+          <Button
+            variant="success"
+            onClick={handleConfirm}
+            style={{ width: "200px" }}
+          >
             {positiveText}
           </Button>
         </div>

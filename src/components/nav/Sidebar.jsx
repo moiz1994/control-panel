@@ -118,6 +118,13 @@ const Sidebar = ({ isCollapsed }) => {
             isSubMenu={true}
             label="Main Menu"
           />
+
+          <SidebarLink
+            to="/reportCreate"
+            isCollapsed={isCollapsed}
+            isSubMenu={true}
+            label="Report Create"
+          />
         </SidebarMenu>
         {/* <div
           onMouseEnter={() => setHoverMenu("bi")}

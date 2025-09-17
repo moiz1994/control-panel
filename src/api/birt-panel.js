@@ -22,3 +22,8 @@ export const deleteMenu = async (menuId) => {
   const response = await api.post("/birt_main_menu_delete.php", { menuId });
   return response.data;
 };
+
+export const getReportFolder = async () => {
+  const response = await api.get("/birt_report_folders_get.php");
+  return response.data;
+};

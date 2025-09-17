@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Container, Form } from "react-bootstrap";
 import { deleteMenu, getMenus, saveMenu, updateMenu } from "../api/birt-panel";
 import CustomDataTable from "../components/CustomDataTable";
-import InputLabelGroup from "../components/InputLabelGroup";
+import FormInputGroup from "../components/FormInputGroup";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Colors } from "../utils/colors";
@@ -142,11 +142,11 @@ const BIMainMenu = () => {
         <Card.Body>
           <Card.Title className="mb-3">Create Main Menu</Card.Title>
           <Form>
-            <InputLabelGroup
+            <FormInputGroup
               label="Menu Title"
               value={menuName}
-              setValue={setMenuName}
-              isReadable={false}
+              onChange={(e) => setMenuName(e.target.value)}
+              readOnly={false}
               type="text"
             />
 
@@ -180,11 +180,11 @@ const BIMainMenu = () => {
         size="lg"
       >
         <Form>
-          <InputLabelGroup
+          <FormInputGroup
             label="Menu Title"
             value={updateMenuName}
-            setValue={setUpdateMenuName}
-            isReadable={false}
+            onChange={(e) => setUpdateMenuName(e.target.value)}
+            readOnly={false}
             type="text"
           />
         </Form>
