@@ -27,3 +27,10 @@ export const getReportFolder = async () => {
   const response = await api.get("/birt_report_folders_get.php");
   return response.data;
 };
+
+export const createReport = async (formData) => {
+  const response = await api.post("/birt_report_create.php", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};

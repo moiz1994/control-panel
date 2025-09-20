@@ -35,16 +35,16 @@ const App = () => {
         >
           <Route index element={<Home />} />
 
-          <Route path="bodData" element={<BodData />} />
+          <Route path="bod/bod_data" element={<BodData />} />
           {/* <Route path="reportBuilder" element={<ComingSoon />} />
           <Route path="salesCompareReport" element={<ComingSoon />} />
           <Route path="osReportBuilder" element={<ComingSoon />} />
           <Route path="osSalesCompareReport" element={<ComingSoon />} /> */}
 
-          <Route path="mainMenu" element={<BIMainMenu />} />
-          <Route path="reportCreate" element={<ReportCreate />} />
+          <Route path="bi_report/main_menu" element={<BIMainMenu />} />
+          <Route path="bi_report/report_create" element={<ReportCreate />} />
 
-          <Route path="applicationLogs" element={<ApplicationLog />} />
+          <Route path="application_logs" element={<ApplicationLog />} />
         </Route>
 
         <Route

@@ -71,10 +71,9 @@ const Sidebar = ({ isCollapsed }) => {
           icon={FaChartBar}
           label="BOD Report"
           collapsed={isCollapsed}
-          basePath="/bodReport"
         >
           <SidebarLink
-            to="/bodData"
+            to="/bod/bod_data"
             isCollapsed={isCollapsed}
             isSubMenu={true}
             label="BOD Data"
@@ -110,17 +109,17 @@ const Sidebar = ({ isCollapsed }) => {
           icon={FaFileAlt}
           label="BI Report Portal"
           collapsed={isCollapsed}
-          basePath="/biReport"
+          basePath="/bi_report/main_menu"
         >
           <SidebarLink
-            to="/mainMenu"
+            to="/bi_report/main_menu"
             isCollapsed={isCollapsed}
             isSubMenu={true}
             label="Main Menu"
           />
 
           <SidebarLink
-            to="/reportCreate"
+            to="/bi_report/report_create"
             isCollapsed={isCollapsed}
             isSubMenu={true}
             label="Report Create"
@@ -261,7 +260,7 @@ const Sidebar = ({ isCollapsed }) => {
 
         {/* Logs */}
         <SidebarLink
-          to="/applicationLogs"
+          to="/application_logs"
           icon={FaCogs}
           label="Application Logs"
           isCollapsed={isCollapsed}
